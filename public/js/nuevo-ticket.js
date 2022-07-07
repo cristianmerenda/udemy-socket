@@ -3,6 +3,7 @@
 const lblNuevoTicket = document.querySelector('#lblNuevoTicket');
 const btnCrear  = document.querySelector('button');
 
+
 const socket = io();
 
 
@@ -23,9 +24,11 @@ socket.on('enviar-mensaje', (payload) => {
     console.log( payload )
 })
 
+socket.emit( 'ultimo-ticket', null, ( ticket) => {
+    lblNuevoTicket.innerHTML = ticket
+})
 
 btnCrear.addEventListener( 'click', () => {
-    console.log("hola")
     socket.emit( 'siguiente-ticket', null, ( ticket ) => {
         lblNuevoTicket.innerHTML = ticket
     });

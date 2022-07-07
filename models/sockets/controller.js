@@ -1,18 +1,28 @@
+const TicketControl = require("../ticket-control")
+
+const ticketControl = new TicketControl();
+
+
+
 const socketController = (socket) => {
-    console.log("cliente conectado", socket.id);
 
     socket.on('disconnect', () => {
         console.log('Cliente Desconectado', socket.id)
     })
-    socket.on('enviar-mensaje', (payload, callback) => {
+
+    
+    socket.on('siguiente-ticket', (payload, callback) => {
         //si hiciera lo siguiente, uso el mismo socket generado para emitir información, por lo que va a llegarle solo a quién generó la petición
         //socket.emit('enviar-mensaje', payload)
 
+        const siguiente = ticketControl.siguiente();
+        callback( siguiente );       
+    })
 
-        socket.broadcast.emit('enviar-mensaje', payload)
-        const id = 123456
-        callback({id, fecha: new Date().getTime()})
 
+    socket.on('ultimo-ticket', (payload, callback) => {
+        const ultimo = ticketControl.ultimoTicket()
+        callback( ultimo )
     })
 }
 

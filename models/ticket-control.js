@@ -23,8 +23,8 @@ class TicketControl {
         return {
             ultimo: this.ultimo,
             hoy: this.hoy, //Nos inteneresa en realidad el número del día
-            tickets: this.tickets = [],
-            ultimos4: this.ultimos4 = [] 
+            tickets: this.tickets,
+            ultimos4: this.ultimos4 
         }
 
 
@@ -67,7 +67,7 @@ class TicketControl {
         ticket.escritorio = escritorio
         this.ultimos4.unshift( ticket )
 
-        if (this.ultimos4 > 4) {
+        if (this.ultimos4.length > 4) {
             this.ultimos4.splice(-1, 1) //Corta siempre el úlitmo elemento
         }
         
